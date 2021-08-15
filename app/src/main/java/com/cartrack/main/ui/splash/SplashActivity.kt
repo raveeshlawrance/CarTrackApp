@@ -27,7 +27,6 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
     private var locationPermissionGranted: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        checkLoginState()
         checklocationPermission()
     }
 
@@ -67,6 +66,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
                                             grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         locationPermissionGranted = false
+        checkLoginState()
         when (requestCode) {
             PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION -> {
                 if (grantResults.isNotEmpty() &&
