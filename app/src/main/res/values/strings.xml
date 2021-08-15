@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">CarTrack</string>
+    <!-- Strings related to login -->
+    <string name="app_name_caps">CARTRACK</string>
+    <string name="app_hint">PUTTING YOU IN CONTROL</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_username">Username</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">Login failed</string>
+    <string name="title_activity_user_details">UserDetailsActivity</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_my_profile">My Profile</string>
+    <string name="logout_title">Logout</string>
+    <string name="logout_body_content">Are you sure, you want to logout?</string>
+    <string name="network_error_text">Please check your network connection and try again.</string>
+    <string name="login_error_title">Something went wrong</string>
+    <string name="login_missing_body_content">Please enter Username and Password</string>
+    <string name="login_incorrect_credentials">Incorrect Username/Password. Please try again</string>
+</resources>
