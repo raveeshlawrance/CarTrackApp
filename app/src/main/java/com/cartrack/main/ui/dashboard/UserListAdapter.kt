@@ -44,6 +44,7 @@ class UserListAdapter(val activity: Context?, val userListResponse: ArrayList<Us
 
     fun refreshUserList(userList: List<UserListResponseItem>) {
         this.userListResponse.apply {
+            clear()
             addAll(userList)
             notifyDataSetChanged()
         }
