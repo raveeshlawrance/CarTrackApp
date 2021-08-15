@@ -1,32 +1,29 @@
 package com.cartrack.main.ui.login
 
+import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import android.util.Patterns
+import androidx.lifecycle.AndroidViewModel
 import com.cartrack.main.data.LoginRepository
-import com.cartrack.main.data.Result
 
 import com.cartrack.main.R
+import com.cartrack.main.data.db.UserCredentails
+import com.cartrack.main.data.LoginDataSource
+import com.cartrack.main.data.Result
 
-class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
+
+class LoginViewModel(dataSource: LoginDataSource, application: Application) :
+    AndroidViewModel(application) {
+    private var repository: LoginRepository = LoginRepository(dataSource, application)
+
+    fun getUser(userName: String, password: String) : LiveData<UserCredentails> {
+        return repository.getUser(userName, password)
+    }
 
     private val _loginForm = MutableLiveData<LoginFormState>()
-    val loginFormState: LiveData<LoginFormState> = _loginForm
 
     private val _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult> = _loginResult
-
-    fun login(username: String, password: String) {
-        // can be launched in a separate asynchronous job
-        val result = loginRepository.login(username, password)
-
-        if (result is Result.Success) {
-            _loginResult.value = LoginResult(success = LoggedInUserView(displayName = result.data.displayName))
-        } else {
-            _loginResult.value = LoginResult(error = R.string.login_failed)
-        }
-    }
 
     fun loginDataChanged(username: String, password: String) {
         if (!isUserNameValid(username)) {
@@ -40,11 +37,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
 
     // A placeholder username validation check
     private fun isUserNameValid(username: String): Boolean {
-        return if (username.contains('@')) {
-            Patterns.EMAIL_ADDRESS.matcher(username).matches()
-        } else {
-            username.isNotBlank()
-        }
+        return username.isNotBlank()
     }
 
     // A placeholder password validation check

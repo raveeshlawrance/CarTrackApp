@@ -1,24 +1,21 @@
 package com.cartrack.main.data
 
-import com.cartrack.main.data.model.LoggedInUser
+import android.app.Application
+import android.os.AsyncTask
+import androidx.lifecycle.LiveData
+import com.cartrack.main.data.db.UserCredentails
+import com.cartrack.main.listener.UserDao
+import com.cartrack.main.storage.DatabaseHelper
 import java.io.IOException
 
 /**
  * Class that handles authentication w/ login credentials and retrieves user information.
  */
-class LoginDataSource {
+class LoginDataSource(application: Application) {
+    val database: DatabaseHelper? = DatabaseHelper.getInstance(application?.applicationContext!!)
+    var userDao: UserDao = database?.userDao()!!
 
-    fun login(username: String, password: String): Result<LoggedInUser> {
-        try {
-            // TODO: handle loggedInUser authentication
-            val fakeUser = LoggedInUser(java.util.UUID.randomUUID().toString(), "Jane Doe")
-            return Result.Success(fakeUser)
-        } catch (e: Throwable) {
-            return Result.Error(IOException("Error logging in", e))
-        }
-    }
-
-    fun logout() {
-        // TODO: revoke authentication
+    fun login(username: String, password: String) : LiveData<UserCredentails> {
+        return userDao.getUser(username, password)
     }
 }
